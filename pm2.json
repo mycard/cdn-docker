@@ -1,0 +1,19 @@
+{
+	"apps": [
+		{
+			"name": "sshd",
+			"script": "/usr/sbin/sshd",
+			"args": "-D"
+		},
+		{
+			"name": "cron",
+			"script": "/usr/sbin/cron",
+			"args": "-f"
+		},
+		{
+			"name": "nginx",
+			"script": "/usr/bin/nginx",
+			"args": "-g \"daemon off;\""
+		}
+	]
+}
