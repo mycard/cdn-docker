@@ -5,18 +5,16 @@ RUN npm install -g pm2
 
 # apt
 RUN apt update && \
-	env DEBIAN_FRONTEND=noninteractive apt -y install wget gnupg  ca-certificates software-properties-common && \
+	env DEBIAN_FRONTEND=noninteractive apt -y install wget gnupg  ca-certificates software-properties-common apt-transport-https && \
 	wget -O - https://openresty.org/package/pubkey.gpg | apt-key add - && \
-	add-apt-repository -y "deb http://openresty.org/package/debian $(lsb_release -sc) openresty" && \
+	add-apt-repository -y "deb https://nginx.org/packages/mainline/debian/ $(lsb_release -sc) nginx" && \
+	add-apt-repository -y "deb-src https://nginx.org/packages/mainline/debian/ $(lsb_release -sc) nginx" && \
 	apt update && \
-	env DEBIAN_FRONTEND=noninteractive apt -y install openresty rsync logrotate openssh-server python locales cron && \
+	env DEBIAN_FRONTEND=noninteractive apt -y install nginx rsync logrotate openssh-server python locales cron && \
 	rm -rf /var/lib/apt/lists/*
 
 # configures
-RUN ln -s /usr/bin/openresty /usr/bin/nginx && \
-	ln -s /etc/openresty /etc/nginx && \
-	mkdir /var/log/nginx && \
-	echo '0 4 * * * /usr/sbin/logrotate /etc/logrotate.conf' > /etc/cron.d/logrotate && \
+RUN echo '0 4 * * * /usr/sbin/logrotate /etc/logrotate.conf' > /etc/cron.d/logrotate && \
 	crontab /etc/cron.d/logrotate && \
 	mkdir -p /var/run/sshd && \
 	mkdir /root/.ssh && \
