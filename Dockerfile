@@ -6,7 +6,7 @@ RUN npm install -g pm2
 # apt
 RUN apt update && \
 	env DEBIAN_FRONTEND=noninteractive apt -y install wget gnupg  ca-certificates software-properties-common apt-transport-https && \
-	wget -O - https://openresty.org/package/pubkey.gpg | apt-key add - && \
+	wget -O - https://nginx.org/keys/nginx_signing.key | apt-key add - && \
 	add-apt-repository -y "deb https://nginx.org/packages/mainline/debian/ $(lsb_release -sc) nginx" && \
 	add-apt-repository -y "deb-src https://nginx.org/packages/mainline/debian/ $(lsb_release -sc) nginx" && \
 	apt update && \
