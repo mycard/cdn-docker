@@ -12,7 +12,7 @@
 		},
 		{
 			"name": "nginx",
-			"script": "/usr/bin/nginx",
+			"script": "/usr/sbin/nginx",
 			"args": "-g \"daemon off;\""
 		}
 	]
