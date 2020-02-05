@@ -1,14 +1,14 @@
-FROM node:buster-slim
+FROM debian:buster-slim
 
 # pm2
-RUN npm install -g pm2
+#RUN npm install -g pm2
 
 # apt
 RUN apt update && \
 	env DEBIAN_FRONTEND=noninteractive apt -y install wget gnupg  ca-certificates software-properties-common apt-transport-https && \
 	wget -O - https://nginx.org/keys/nginx_signing.key | apt-key add - && \
-	add-apt-repository -y "deb https://nginx.org/packages/mainline/debian/ $(lsb_release -sc) nginx" && \
-	add-apt-repository -y "deb-src https://nginx.org/packages/mainline/debian/ $(lsb_release -sc) nginx" && \
+	add-apt-repository -y "deb https://nginx.org/packages/mainline/debian $(lsb_release -sc) nginx" && \
+	add-apt-repository -y "deb-src https://nginx.org/packages/mainline/debian $(lsb_release -sc) nginx" && \
 	apt update && \
 	env DEBIAN_FRONTEND=noninteractive apt -y install nginx rsync logrotate openssh-server python locales cron && \
 	rm -rf /var/lib/apt/lists/*
@@ -28,6 +28,6 @@ RUN echo '0 4 * * * /usr/sbin/logrotate /etc/logrotate.conf' > /etc/cron.d/logro
 
 ENV LANG=zh_CN.UTF-8
 COPY logrotate.conf /etc/logrotate.conf
-COPY ./pm2.json /etc/pm2.json
+#COPY ./pm2.json /etc/pm2.json
 EXPOSE 22 80 443
-CMD ["pm2-docker", "/etc/pm2.json"]
+CMD ["bash", "-c", "nginx && cron && /usr/sbin/sshd -D"]
