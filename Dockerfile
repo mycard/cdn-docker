@@ -8,8 +8,8 @@ RUN sed -i -e 's/deb.debian.org/mirrors.163.com/g' -e 's/security.debian.org/mir
 	apt update && \
 	env DEBIAN_FRONTEND=noninteractive apt -y install wget gnupg  ca-certificates software-properties-common apt-transport-https && \
 	wget -O - https://nginx.org/keys/nginx_signing.key | apt-key add - && \
-	add-apt-repository -y "deb https://nginx.org/packages/mainline/debian $(lsb_release -sc) nginx" && \
-	add-apt-repository -y "deb-src https://nginx.org/packages/mainline/debian $(lsb_release -sc) nginx" && \
+	add-apt-repository -y "deb https://nginx.org/packages/mainline/debian/ $(lsb_release -sc) nginx" && \
+	add-apt-repository -y "deb-src https://nginx.org/packages/mainline/debian/ $(lsb_release -sc) nginx" && \
 	apt update && \
 	env DEBIAN_FRONTEND=noninteractive apt -y install nginx rsync logrotate openssh-server python locales cron && \
 	rm -rf /var/lib/apt/lists/*
