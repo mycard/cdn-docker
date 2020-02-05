@@ -4,8 +4,7 @@ FROM debian:buster-slim
 #RUN npm install -g pm2
 
 # apt
-RUN sed -i -e 's/deb.debian.org/mirrors.163.com/g' -e 's/security.debian.org/mirrors.163.com/g' /etc/apt/sources.list && \
-	apt update && \
+RUN apt update && \
 	env DEBIAN_FRONTEND=noninteractive apt -y install wget gnupg  ca-certificates software-properties-common apt-transport-https && \
 	wget -O - https://nginx.org/keys/nginx_signing.key | apt-key add - && \
 	add-apt-repository -y "deb https://nginx.org/packages/mainline/debian $(lsb_release -sc) nginx" && \
