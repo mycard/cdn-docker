@@ -5,7 +5,7 @@ FROM debian:buster-slim
 
 # apt
 RUN apt update && \
-	env DEBIAN_FRONTEND=noninteractive apt -y install wget gnupg  ca-certificates software-properties-common apt-transport-https && \
+	env DEBIAN_FRONTEND=noninteractive apt -y install wget gnupg  ca-certificates software-properties-common apt-transport-https sudo && \
 	wget -O - https://nginx.org/keys/nginx_signing.key | apt-key add - && \
 	echo "deb https://nginx.org/packages/mainline/debian/ $(lsb_release -sc) nginx" >> /etc/apt/sources.list.d/nginx.list && \
 	echo "deb-src https://nginx.org/packages/mainline/debian/ $(lsb_release -sc) nginx"  >> /etc/apt/sources.list.d/nginx.list && \
