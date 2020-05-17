@@ -7,12 +7,11 @@ FROM debian:buster-slim
 RUN apt update && \
 	env DEBIAN_FRONTEND=noninteractive apt -y install wget gnupg  ca-certificates software-properties-common apt-transport-https sudo && \
 	wget -O - https://nginx.org/keys/nginx_signing.key | apt-key add - && \
-	echo "deb http://192.168.1.4:8888/nginx-plus/debian $(lsb_release -sc) nginx-plus" >> /etc/apt/sources.list.d/nginx.list && \
+	echo "deb https://nginx.org/packages/mainline/debian/ $(lsb_release -sc) nginx" >> /etc/apt/sources.list.d/nginx.list && \
+	echo "deb-src https://nginx.org/packages/mainline/debian/ $(lsb_release -sc) nginx"  >> /etc/apt/sources.list.d/nginx.list && \
 	apt update && \
-	env DEBIAN_FRONTEND=noninteractive apt -y install nginx-plus rsync logrotate openssh-server python locales cron && \
-	rm -rf /var/lib/apt/lists/* /var/tmp/* /tmp/* /usr/lib/nginx-plus/check-subscription
-
-COPY ./dummy /usr/lib/nginx-plus/check-subscription
+	env DEBIAN_FRONTEND=noninteractive apt -y install nginx rsync logrotate openssh-server python locales cron && \
+	rm -rf /var/lib/apt/lists/*
 
 # configures
 RUN echo '0 4 * * * /usr/sbin/logrotate /etc/logrotate.conf' > /etc/cron.d/logrotate && \
