@@ -28,6 +28,7 @@ RUN echo '0 4 * * * /usr/sbin/logrotate /etc/logrotate.conf' > /etc/cron.d/logro
     /usr/sbin/update-locale LANG=zh_CN.UTF-8
 
 ENV LANG=zh_CN.UTF-8
+ENV TZ=Asia/Shanghai
 COPY logrotate.conf /etc/logrotate.conf
 #COPY ./pm2.json /etc/pm2.json
 EXPOSE 22 80 443
