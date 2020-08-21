@@ -9,7 +9,7 @@ RUN apt update && \
 	wget -O - https://nginx.org/keys/nginx_signing.key | apt-key add - && \
 	echo "deb http://yangtze.my-card.in/nginx-plus/debian $(lsb_release -sc) nginx-plus" >> /etc/apt/sources.list.d/nginx.list && \
 	apt update && \
-	env DEBIAN_FRONTEND=noninteractive apt -y install nginx-plus rsync logrotate openssh-server python locales cron && \
+	env DEBIAN_FRONTEND=noninteractive apt -y install nginx-plus rsync curl logrotate openssh-server python locales cron && \
 	rm -rf /var/lib/apt/lists/* /var/tmp/* /tmp/* /usr/lib/nginx-plus/check-subscription
 
 COPY ./dummy /usr/lib/nginx-plus/check-subscription
