@@ -10,7 +10,7 @@ RUN apt update && \
 	echo "deb https://nginx.org/packages/mainline/debian/ $(lsb_release -sc) nginx" >> /etc/apt/sources.list.d/nginx.list && \
 	echo "deb-src https://nginx.org/packages/mainline/debian/ $(lsb_release -sc) nginx"  >> /etc/apt/sources.list.d/nginx.list && \
 	apt update && \
-	env DEBIAN_FRONTEND=noninteractive apt -y install nginx rsync logrotate openssh-server python locales cron && \
+	env DEBIAN_FRONTEND=noninteractive apt -y install curl nginx rsync logrotate openssh-server python locales cron && \
 	rm -rf /var/lib/apt/lists/*
 
 # configures
